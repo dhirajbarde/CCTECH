@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System.Reflection;
+using System.Linq.Expressions;
+using System.Drawing;
+
+namespace SunExposed
+{
+    class class1
+    {
+      
+        public static bool Polygon(double[,] polygon, double[] testpoint)
+        {
+            bool result = false;
+            double j = polygon.Length / 2 - 1;
+            for (int i = 0; i < polygon.Length / 2; i++)
+            {
+
+                if (polygon[i, 1] < testpoint[1] && polygon[polygon.Length / 2 - 1, 1] >= testpoint[1] || polygon[polygon.Length / 2 - 1, 1] < testpoint[1] && polygon[i, 1] >= testpoint[1])
+                {
+                    if (polygon[i, 0] + (testpoint[1] - polygon[i, 1] / polygon[polygon.Length / 2 - 1, 1] - polygon[i, 1]) * (polygon[polygon.Length / 2 - 1, 0] - polygon[i, 0]) < testpoint[0])
+                    {
+                        result = !result;
+                    }
+                }
+                j = i;
+
+            }
+            return result;
+        }
+
+        static void Main(string[] args)
+        {
+            double[,] points = new double[5, 2] { { -3, 2 }, { -2, -0.8 }, { 0, 1.2 }, { 2.2, 0 }, { 2, 4.5 } };
+            double[] testpoint = new double[2] { 0, 0 };
+            Console.WriteLine(Polygon(points, testpoint));
+            Console.ReadKey();
+
+        }
+    }
+}
+
